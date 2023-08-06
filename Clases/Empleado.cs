@@ -36,6 +36,69 @@ namespace Reparacion_Automotriz.Clases
             set{this.telefono = value;}
         }
 
+        //Metodos
+
+        public void RegistrarEmpleado(Dictionary<string, Empleado> DicEmpleados)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("********* REGISTRO DE EMPLEADO ************");
+            Console.ResetColor();
+
+            Console.WriteLine("Ingrese número de identificación del empleado:");
+            string id = Convert.ToString(Console.ReadLine());
+
+            if(!DicEmpleados.ContainsKey(id))
+            {
+                Console.WriteLine("Ingrese nombre del empleado:");
+                string nombre = Convert.ToString(Console.ReadLine());
+
+                bool invalido = true;
+                do
+                {
+                    Console.WriteLine("Ingrese número móvil del empleado:");
+                    if(!long.TryParse(Console.ReadLine(), out long telefono) || Convert.ToString(telefono).Length !=10)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Digite un número de teléfono válido.");
+                        Console.ResetColor();
+                    }else
+                    {
+                        invalido = false;
+                    }
+                    
+                }while(invalido);
+
+                bool continuar;
+                List<string> especialidades = new ();
+                do
+                {
+                    Console.WriteLine("Ingrese especialidad del empleado:");
+                    especialidades.Add(Convert.ToString(Console.ReadLine()));
+
+                    Console.WriteLine("¿Desea ingresar otra especialidad?\n1.Sí\n2.No");
+                    int rta = Int32.Parse(Console.ReadLine());
+                    if(rta ==1)
+                    {
+                        continuar = true;
+                    }else{
+                        continuar = false;
+                    }
+                
+                }while(continuar);
+
+                Empleado newEmpleado = new(nombre,telefono,especialidades);
+
+                DicEmpleados.Add(id,newEmpleado);
+
+                Console.WriteLine("Empleado registrado con exito!");
+
+                Console.WriteLine(DicEmpleados[id].Especialidad[1]+"  "+DicEmpleados[id].especialidad[2]+"  "+DicEmpleados[id].Nombre+"  "+"Pruebita");
+
+                
+            }   
+
+    }
+
 
     }
 }

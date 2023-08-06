@@ -17,25 +17,28 @@ internal class Program
 
     //Metodos de las clases
     static Cliente mClientes = new();
-    static Empleado mEmpleado = new();
-    static Vehiculo mVehiculo = new();
-    static OrdenServicio mOrdenServicio = new();
-    static DiagExperto mDiagExperto = new();
-    static OrdenReparacion mOrdenReparacion = new();
+    static Empleado mEmpleados = new();
+    static Vehiculo mVehiculos = new();
+    static OrdenServicio mOrdenServicios = new();
+    static DiagExperto mDiagExpertos = new();
+    static OrdenReparacion mOrdenReparacions = new();
     
     private static void Main()
     {
         //mClientes.RegistrarCliente(DicClientes);
         
+        /* Registrar Vehiculo
         Cliente falsoCliente = new ("Jaime","Lopez",3004785262,"jaime@gmail.com","2023-08-06");
         DicClientes.Add("111",falsoCliente);
         if(DicClientes.Count != 0)
         {
             mClientes.MostrarClientes(DicClientes);
-            mVehiculo.RegistrarVehiculo(DicClientes,DicVehiculos);
+            mVehiculos.RegistrarVehiculo(DicClientes,DicVehiculos);
 
         }else{
             Console.WriteLine("No existen clientes en la base de datos, por lo tanto no puede hacer un registro de un vehículo. ");
-        }
+        }*/
+
+        mEmpleados.RegistrarEmpleado(DicEmpleado);
     }
 }
