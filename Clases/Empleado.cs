@@ -92,7 +92,7 @@ namespace Reparacion_Automotriz.Clases
 
                 Console.WriteLine("Empleado registrado con exito!");
 
-                Console.WriteLine(DicEmpleados[id].Especialidad[1]+"  "+DicEmpleados[id].especialidad[2]+"  "+DicEmpleados[id].Nombre+"  "+"Pruebita");
+               /* Console.WriteLine(DicEmpleados[id].Especialidad[1]+"  "+DicEmpleados[id].especialidad[2]+"  "+DicEmpleados[id].Nombre+"  "+"Pruebita");*/
 
                 
             }   

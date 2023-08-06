@@ -95,6 +95,10 @@ namespace Reparacion_Automotriz.Clases
                 DicClientes.Add(id,newCliente);
 
                 Console.WriteLine("Cliente registrado con exito!");
+            }else{
+                Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("El ID del cliente ya se encuentra registrado!");
+                    Console.ResetColor();
             }
         }
 

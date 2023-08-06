@@ -89,7 +89,8 @@ namespace Reparacion_Automotriz.Clases
 
                     Vehiculo newVehiculo = new(idCliente,modelo,marca,color,km);
                     DicVehiculos.Add(id, newVehiculo);
-
+                    
+                    Console.WriteLine("Vehiculo registrado de forma exitosa!");
                     Console.WriteLine(DicVehiculos[id].IdCliente, "Pruebita");
                 }else{
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -102,6 +103,27 @@ namespace Reparacion_Automotriz.Clases
                 Console.ResetColor();
             } 
 
+        }
+
+        public void MostrarVehiculos(Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos )
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("--------------- VEHÍCULOS ---------------");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Dueño\t\tPlaca\tModelo\tMarca\tKilometraje");
+            Console.ResetColor();
+
+            foreach(var vehiculo in DicVehiculos)
+            {
+                string idCliente = vehiculo.Value.IdCliente;
+                string dueño = DicClientes[idCliente].Nombre+" "+DicClientes[idCliente].Apellido;
+
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}", dueño,vehiculo.Key,vehiculo.Value.Modelo, vehiculo.Value.Marca, vehiculo.Value.Km);
+                
+            }
+           
         }
 
 
