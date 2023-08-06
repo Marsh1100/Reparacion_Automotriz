@@ -25,7 +25,17 @@ internal class Program
     
     private static void Main()
     {
-        //Funciona!
-        mClientes.RegistrarCliente(DicClientes);
+        //mClientes.RegistrarCliente(DicClientes);
+        
+        Cliente falsoCliente = new ("Jaime","Lopez",3004785262,"jaime@gmail.com","2023-08-06");
+        DicClientes.Add("111",falsoCliente);
+        if(DicClientes.Count != 0)
+        {
+            mClientes.MostrarClientes(DicClientes);
+            mVehiculo.RegistrarVehiculo(DicClientes,DicVehiculos);
+
+        }else{
+            Console.WriteLine("No existen clientes en la base de datos, por lo tanto no puede hacer un registro de un vehículo. ");
+        }
     }
 }

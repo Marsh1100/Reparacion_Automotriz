@@ -46,5 +46,64 @@ namespace Reparacion_Automotriz.Clases
             get{return this.km;}
         }
         //Métodos
+
+        public void RegistrarVehiculo(Dictionary<string, Cliente> DicClientes,Dictionary<string, Vehiculo> DicVehiculos)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("********* REGISTRO DE VEHÍCULO ************");
+            Console.ResetColor();
+
+            Console.WriteLine("Ingrese ID del cliente:");
+            string idCliente = Convert.ToString(Console.ReadLine());
+
+            if(DicClientes.ContainsKey(idCliente)){
+                Console.WriteLine("Ingrese placa del vehículo:");
+                string id = Convert.ToString(Console.ReadLine());
+
+                if(!DicVehiculos.ContainsKey(id))
+                {
+                    Console.WriteLine("Ingrese modelo del vehículo:");
+                    string modelo = Convert.ToString(Console.ReadLine());
+
+                    Console.WriteLine("Ingrese marca del vehículo:");
+                    string marca = Convert.ToString(Console.ReadLine());
+
+                    Console.WriteLine("Ingrese color del vehículo:");
+                    string color = Convert.ToString(Console.ReadLine());
+
+                    bool invalido = true;
+                    do
+                    {
+                        Console.WriteLine("Ingrese kilometraje del vehículo:");
+                        if(!long.TryParse(Console.ReadLine(), out long km) || km <0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Digite un número de kilometraje válido.");
+                            Console.ResetColor();
+                        }else
+                        {
+                            invalido = false;
+                        }
+                        
+                    }while(invalido);
+
+                    Vehiculo newVehiculo = new(idCliente,modelo,marca,color,km);
+                    DicVehiculos.Add(id, newVehiculo);
+
+                    Console.WriteLine(DicVehiculos[id].IdCliente, "Pruebita");
+                }else{
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("La placa del vehículo ya existe");
+                    Console.ResetColor();
+                }
+            }else{
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("El ID no se encuentra registrado");
+                Console.ResetColor();
+            } 
+
+        }
+
+
     }
 }
