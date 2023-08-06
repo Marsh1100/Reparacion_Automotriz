@@ -41,7 +41,6 @@ internal class Program
 
         //mEmpleados.RegistrarEmpleado(DicEmpleado);
 
-        //Registrar Orden de servicio 1.1
 
         Cliente falsoCliente = new ("Jaime","Lopez",3004785262,"jaime@gmail.com","2023-08-06");
         DicClientes.Add("111",falsoCliente);
@@ -50,13 +49,14 @@ internal class Program
         DicVehiculos.Add("KTR477",falsoVehiculo);
         DicVehiculos.Add("UUU000",falsoVehiculo);
 
-
-
+        //Registrar Orden de servicio 1.1
         if(DicClientes.Count != 0)
         {
             if(DicVehiculos.Count != 0)
             {
                 mVehiculos.MostrarVehiculos(DicClientes,DicVehiculos);
+
+                mOrdenServicios.RegistrarOrden(DicVehiculos,DicOrdenesS);
             }else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
