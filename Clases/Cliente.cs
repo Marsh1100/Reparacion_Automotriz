@@ -61,45 +61,47 @@ namespace Reparacion_Automotriz.Clases
             Console.WriteLine("Ingrese número de identificación del cliente:");
             string id = Convert.ToString(Console.ReadLine());
 
-            Console.WriteLine("Ingrese nombre del cliente:");
-            string nombre = Convert.ToString(Console.ReadLine());
-
-            Console.WriteLine("Ingrese apellido del cliente:");
-            string apellido = Convert.ToString(Console.ReadLine());
-            bool invalido = true;
-             do
+            if(!DicClientes.ContainsKey(id))
             {
-                Console.WriteLine("Ingrese número móvil del cliente:");
-                if(!long.TryParse(Console.ReadLine(), out long telefono) || Convert.ToString(telefono).Length !=10)
+                Console.WriteLine("Ingrese nombre del cliente:");
+                string nombre = Convert.ToString(Console.ReadLine());
+
+                Console.WriteLine("Ingrese apellido del cliente:");
+                string apellido = Convert.ToString(Console.ReadLine());
+                bool invalido = true;
+                do
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Digite un número de teléfono válido.");
-                    Console.ResetColor();
-                }else
-                {
-                    invalido = false;
-                }
-                
-            }while(invalido);
+                    Console.WriteLine("Ingrese número móvil del cliente:");
+                    if(!long.TryParse(Console.ReadLine(), out long telefono) || Convert.ToString(telefono).Length !=10)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Digite un número de teléfono válido.");
+                        Console.ResetColor();
+                    }else
+                    {
+                        invalido = false;
+                    }
+                    
+                }while(invalido);
 
-            Console.WriteLine("Ingrese email del cliente:");
-            string email = Convert.ToString(Console.ReadLine());
+                Console.WriteLine("Ingrese email del cliente:");
+                string email = Convert.ToString(Console.ReadLine());
 
-            //validar fecha
-            Console.WriteLine("Ingrese fecha de registro formato (YYYY-MM-DD):");
-            string fecha = Convert.ToString(Console.ReadLine());
+                //validar fecha
+                Console.WriteLine("Ingrese fecha de registro formato (YYYY-MM-DD):");
+                string fecha = Convert.ToString(Console.ReadLine());
 
-            Cliente newCliente = new(nombre,apellido,telefono,email,fecha);
-            DicClientes.Add(id,newCliente);
+                Cliente newCliente = new(nombre,apellido,telefono,email,fecha);
+                DicClientes.Add(id,newCliente);
 
-            Console.WriteLine("Cliente registrado con exito!");
-
+                Console.WriteLine("Cliente registrado con exito!");
+            }
         }
 
         public void MostrarClientes(Dictionary<string, Cliente> DicClientes)
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("******* CLIENTES ******");
+            Console.WriteLine("--------------- CLIENTES ---------------");
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
