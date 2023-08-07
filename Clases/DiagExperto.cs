@@ -38,12 +38,41 @@ namespace Reparacion_Automotriz.Clases
 
             if(DicOrdenesS.ContainsKey(idOrden))
             {
-                mEmpleados.MostrarEmpleados(DicEmpleados);
+                if(!DicOrdenesS[idOrden].finalizada){
+                    mEmpleados.MostrarEmpleados(DicEmpleados);
                 Console.WriteLine("Digite número de identificación del empleado enacargado de dar el diagnóstico:");
                 string idEmpleado = Convert.ToString(Console.ReadLine());
 
                 if(DicDiagnosticos.ContainsKey(idEmpleado) )
                 {
+                    Console.WriteLine("El empleado ya ha registrado un diágnostico a la orden {0} ", idOrden);
+                    Console.WriteLine("Diagnóstico:");
+                    foreach(var item in DicDiagnosticos[idEmpleado].Diagnosticos[idOrden]){
+                        Console.WriteLine("-"+item);
+                    }
+
+                    bool continuar;
+
+                    do{
+                        Console.WriteLine("¿Desea agregar nuevo diágnostico?:\n1.Sí\n2.No");
+
+                        int rta = Int32.Parse(Console.ReadLine());
+                        if(rta ==1)
+                        {   
+                            Console.WriteLine("Ingrese diagnostico:");
+                            DicDiagnosticos[idEmpleado].Diagnosticos[idOrden].Add( Convert.ToString(Console.ReadLine()));
+                            continuar = true;
+                        }else if(rta !=2){
+                            Console.WriteLine("No es un valor válido");
+                            continuar = false;
+                        }else{
+                            continuar = false;
+                        }
+
+                    }while(continuar);
+                    Console.WriteLine("Diagnóstico agregado a la orden {0} de forma correcta", idOrden);
+
+                }else if(DicEmpleados.ContainsKey(idEmpleado)){
                     bool continuar;
                     List<string> diagnosticos = new ();
                     do
@@ -72,14 +101,26 @@ namespace Reparacion_Automotriz.Clases
                     DicDiagnosticos.Add(idEmpleado, newDiagnostico);
 
                     Console.WriteLine("Diagnóstico de experto registrado correctamente!.");
-
                 }else{
                     Console.WriteLine("El número de identificación del empleado no se encuentra registrado.");
 
                 }
+                }else{
+                    Console.WriteLine("La orden ya se encuentra finalizada");
+                }
+
+                
             }else{
                 Console.WriteLine("El n° de orden ingresado no existe en la base de datos. Por favor verificar.");
             }
-       }
+        }
+
+
+        public void MostrarDiagnosticos(Dictionary<string, DiagExperto> DicDiagnosticos, string idEmpleado, string idOrden){
+            foreach(var item in DicDiagnosticos[idEmpleado].Diagnosticos[idOrden]){
+                Console.WriteLine("-"+item);
+            }
+
+        }
     }
 }
