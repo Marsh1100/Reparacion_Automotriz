@@ -5,33 +5,33 @@ namespace Reparacion_Automotriz.Clases
     public class DiagExperto
     {
         //Atributos
-        private string idOrden;
-        private List<string> diagnosticos;
+        //private string idOrden;
+        private Dictionary<string,List<string>> diagnosticos;
         //Constructor
         public DiagExperto()
         {
 
         }
-        public DiagExperto(string IdOrden,List<string> Diagnosticos)
+        public DiagExperto( Dictionary<string,List<string>> Diagnosticos)
         {
-            this.idOrden = IdOrden;
             this.diagnosticos = Diagnosticos;
         }
+
         //Propiedades
-        public string IdOrden
+        /*public string IdOrden
         {
             get { return this.idOrden; }
-        }
-        public List<string> Diagnosticos
+        }*/
+        public Dictionary<string,List<string>> Diagnosticos
         {
             get { return this.diagnosticos; }
-            set {this.diagnosticos.AddRange(value);}
+            set {this.diagnosticos=value;}
         }
         //Métodos
 
        public void NuevoDiganostico(Dictionary<string, Empleado> DicEmpleados,Dictionary<string, OrdenServicio> DicOrdenesS,Dictionary<string, DiagExperto> DicDiagnosticos)
        {
-            Empleado mEmpleados = new();
+            Empleado mEmpleados = new(); //Para usar el método de ver empleados
 
             Console.WriteLine("Digite número de orden para agregar diagnóstico:");
             string idOrden = Convert.ToString(Console.ReadLine());
@@ -42,7 +42,7 @@ namespace Reparacion_Automotriz.Clases
                 Console.WriteLine("Digite número de identificación del empleado enacargado de dar el diagnóstico:");
                 string idEmpleado = Convert.ToString(Console.ReadLine());
 
-                if(DicEmpleados.ContainsKey(idEmpleado))
+                if(DicDiagnosticos.ContainsKey(idEmpleado) )
                 {
                     bool continuar;
                     List<string> diagnosticos = new ();
@@ -64,7 +64,11 @@ namespace Reparacion_Automotriz.Clases
                         }
                     }while(continuar);
 
-                    DiagExperto newDiagnostico = new (idOrden,diagnosticos);
+                    //Crear diagnostico experto
+                    Dictionary<string, List<string>> dicOrdenE = new();
+                    dicOrdenE.Add(idOrden,diagnosticos);
+                    
+                    DiagExperto newDiagnostico = new (dicOrdenE);
                     DicDiagnosticos.Add(idEmpleado, newDiagnostico);
 
                     Console.WriteLine("Diagnóstico de experto registrado correctamente!.");
