@@ -99,6 +99,25 @@ namespace Reparacion_Automotriz.Clases
 
     }
 
+    public void MostrarEmpleados(Dictionary<string, Empleado> DicEmpleados)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
+        Console.WriteLine("----------------- EMPLEADOS ------------------");
+        Console.ResetColor();
+
+        Console.WriteLine("ID\tNombre\tEspecialidad");
+        foreach(var empleado in DicEmpleados)
+        {
+            string especialidades="";
+            foreach(var especialidad in empleado.Value.Especialidad)
+            {
+                especialidades += "-"+especialidad+" ";
+            }
+
+            Console.WriteLine(empleado.Key+"\t"+empleado.Value.Nombre+"\t"+especialidades);
+        }
+    }
+
 
     }
 }
