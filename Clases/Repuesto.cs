@@ -4,11 +4,11 @@ namespace Reparacion_Automotriz.Clases
     {
         //Atributos
         public string Nombre { get; set; }
-        public string ValorU { get; set; }
+        public float ValorU { get; set; }
         public int Cantidad { get; set; }
         public bool Estado { get; set; } 
         //Constructor
-        public Repuesto(string nombre, string valorU, int cantidad, bool estado =false)
+        public Repuesto(string nombre, float valorU, int cantidad, bool estado =false)
         {
             this.Nombre = nombre;
             this.ValorU = valorU;

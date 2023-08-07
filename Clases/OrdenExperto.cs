@@ -2,19 +2,20 @@ using System.Collections.Generic;
 
 namespace Reparacion_Automotriz.Clases
 {
-    public class DiagExperto
+    public class OrdenExperto
     {
         //Atributos
         //private string idOrden;
-        private Dictionary<string,List<string>> diagnosticos;
+        private Dictionary<string,DiagnosticoE> ordenEpx;
+        
         //Constructor
-        public DiagExperto()
+        public OrdenExperto()
         {
 
         }
-        public DiagExperto( Dictionary<string,List<string>> Diagnosticos)
+        public OrdenExperto( Dictionary<string,DiagnosticoE> OrdenExp )
         {
-            this.diagnosticos = Diagnosticos;
+            this.ordenEpx = OrdenExp;
         }
 
         //Propiedades
@@ -22,14 +23,14 @@ namespace Reparacion_Automotriz.Clases
         {
             get { return this.idOrden; }
         }*/
-        public Dictionary<string,List<string>> Diagnosticos
+        public Dictionary<string,DiagnosticoE> OrdenExp
         {
-            get { return this.diagnosticos; }
-            set {this.diagnosticos=value;}
+            get { return this.ordenEpx; }
+            set {this.ordenEpx=value;}
         }
         //Métodos
 
-       public void NuevoDiganostico(Dictionary<string, Empleado> DicEmpleados,Dictionary<string, OrdenServicio> DicOrdenesS,Dictionary<string, DiagExperto> DicDiagnosticos)
+       public void NuevoDiganostico(Dictionary<string, Empleado> DicEmpleados,Dictionary<string, OrdenServicio> DicOrdenesS,Dictionary<string, OrdenExperto> DicDiagnosticos)
        {
             Empleado mEmpleados = new(); //Para usar el método de ver empleados
 
@@ -47,11 +48,11 @@ namespace Reparacion_Automotriz.Clases
                     {
 
                         //Caso en donde ya el experto tiene ordenes en su cola y haya dado un diagnóstico a la orden ingresada
-                        if(DicDiagnosticos[idEmpleado].Diagnosticos.TryGetValue(idOrden, out List<string> diagnosticosO)){
+                        if(DicDiagnosticos[idEmpleado].OrdenExp.TryGetValue(idOrden, out DiagnosticoE diagnosticosO)){
 
                             Console.WriteLine("El empleado ya ha registrado un diágnostico a la orden {0} ", idOrden);
                             Console.WriteLine("Diagnóstico:");
-                            foreach(var item in diagnosticosO){
+                            foreach(var item in diagnosticosO.Diagnosticos){
                                 Console.WriteLine("-"+item);
                             }
 
@@ -64,7 +65,7 @@ namespace Reparacion_Automotriz.Clases
                                 if(rta ==1)
                                 {   
                                     Console.WriteLine("Ingrese diagnostico:");
-                                    DicDiagnosticos[idEmpleado].Diagnosticos[idOrden].Add( Convert.ToString(Console.ReadLine()));
+                                    DicDiagnosticos[idEmpleado].OrdenExp[idOrden].Diagnosticos.Add( Convert.ToString(Console.ReadLine()));
                                     continuar = true;
                                 }else if(rta !=2){
                                     Console.WriteLine("No es un valor válido");
@@ -75,6 +76,7 @@ namespace Reparacion_Automotriz.Clases
 
                             }while(continuar);
                             Console.WriteLine("Diagnóstico agregado a la orden {0} de forma correcta", idOrden);
+                            MostrarDiagnosticos(DicDiagnosticos,idEmpleado,idOrden);
                         //Caso en donde el experto ya tenga ordenes bajo su cola, pero no haya dado un diagnóstico a la orden ingresada
                         }else{
                             bool continuar;
@@ -97,11 +99,12 @@ namespace Reparacion_Automotriz.Clases
                                 }
                             }while(continuar);
 
-                            DicDiagnosticos[idEmpleado].Diagnosticos.Add(idOrden,diagnosticos);
+                            DiagnosticoE newDiagnostico = new(diagnosticos);
+                            DicDiagnosticos[idEmpleado].OrdenExp.Add(idOrden,newDiagnostico);
 
                             Console.WriteLine("Diagnóstico de experto registrado correctamente!.");
 
-
+                            MostrarDiagnosticos(DicDiagnosticos,idEmpleado,idOrden);
                         }
                         
                     //Caso en el que el experto no tenga cola de ordenes a su lista.
@@ -115,11 +118,11 @@ namespace Reparacion_Automotriz.Clases
                             diagnosticos.Add(Convert.ToString(Console.ReadLine()));
 
                             Console.WriteLine("¿Desea ingresar otro diagnóstico?\n1.Sí\n2.No");
-                            int rta = Int32.Parse(Console.ReadLine());
-                            if(rta ==1)
+                            string rta = Convert.ToString(Console.ReadLine());
+                            if(rta =="1")
                             {
                                 continuar = true;
-                            }else if(rta !=2){
+                            }else if(rta !="2"){
                                 Console.WriteLine("No es un valor válido");
                                 continuar = false;
                             }else{
@@ -128,18 +131,24 @@ namespace Reparacion_Automotriz.Clases
                         }while(continuar);
 
                         //Crear diagnostico experto
-                        Dictionary<string, List<string>> dicOrdenE = new();
-                        dicOrdenE.Add(idOrden,diagnosticos);
+
+                        DiagnosticoE newDiagnosticoE = new(diagnosticos);
+
+                        Dictionary<string, DiagnosticoE> dicOrdenE = new();
                         
-                        DiagExperto newDiagnostico = new (dicOrdenE);
+                        dicOrdenE.Add(idOrden,newDiagnosticoE);
+                        
+                        OrdenExperto newDiagnostico = new (dicOrdenE);
                         DicDiagnosticos.Add(idEmpleado, newDiagnostico);
 
                         Console.WriteLine("Diagnóstico de experto registrado correctamente!.");
-                    
+                    MostrarDiagnosticos(DicDiagnosticos,idEmpleado,idOrden);
                     }else{
                         Console.WriteLine("El número de identificación del empleado no se encuentra registrado.");
 
                     }
+
+                    
                 }else{
                     Console.WriteLine("La orden ya se encuentra finalizada");
                 }
@@ -151,11 +160,35 @@ namespace Reparacion_Automotriz.Clases
         }
 
 
-        public void MostrarDiagnosticos(Dictionary<string, DiagExperto> DicDiagnosticos, string idEmpleado, string idOrden){
-            foreach(var item in DicDiagnosticos[idEmpleado].Diagnosticos[idOrden]){
+        public void MostrarDiagnosticos(Dictionary<string, OrdenExperto> DicDiagnosticos, string idEmpleado, string idOrden){
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Diagnósticos de la orden {0}:",idOrden);
+            Console.ResetColor();
+            foreach(var item in DicDiagnosticos[idEmpleado].OrdenExp[idOrden].Diagnosticos){
                 Console.WriteLine("-"+item);
             }
+            if(DicDiagnosticos[idEmpleado].OrdenExp[idOrden].OrdenReparacion){
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.Write("Estado: ");
+                Console.ResetColor();
 
+                Console.WriteLine("Con orden de reparación");
+            }else{
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.Write("Estado: ");
+                Console.ResetColor();
+
+                Console.WriteLine("Sin orden de reparación");
+            }
+        }
+
+        public void MostrarOrdenes(Dictionary<string, Empleado> DicEmpleados,Dictionary<string, OrdenExperto> DicDiagnosticos, string idEmpleado)
+        {
+            Console.WriteLine("Ordenes del empleado {0} con ID {1} ",DicEmpleados[idEmpleado].Nombre,idEmpleado);
+            foreach(var orden in  DicDiagnosticos[idEmpleado].OrdenExp)
+            {
+                Console.WriteLine("- {0}", orden.Key);
+            }
         }
     }
 }

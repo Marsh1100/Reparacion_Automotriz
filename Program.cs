@@ -10,7 +10,7 @@ internal class Program
     //Diccionario  Ordenes de servicios
     static Dictionary<string, OrdenServicio> DicOrdenesS = new();
     //Diccionario Diagnósticos de expertos
-    static Dictionary<string, DiagExperto> DicDiagnosticos = new();
+    static Dictionary<string, OrdenExperto> DicDiagnosticos = new();
     //Diccionario Ordenes de reparacion
     static Dictionary<string, OrdenReparacion> DicOrdenesR = new();
 
@@ -20,7 +20,7 @@ internal class Program
     static Empleado mEmpleados = new();
     static Vehiculo mVehiculos = new();
     static OrdenServicio mOrdenServicios = new();
-    static DiagExperto mDiagExpertos = new();
+    static OrdenExperto mDiagExpertos = new();
     static OrdenReparacion mOrdenReparacions = new();
     
     private static void Main()
@@ -85,7 +85,22 @@ internal class Program
         DicOrdenesS.Add("002", falsaordenServicio2);
         DicOrdenesS.Add("003", falsaordenServicio);
 
+        List<string> diagnostico1 = new(){"Filtro de aire necesita cambio", "Cambio de refrigerante"};
+        List<string> diagnostico2 = new(){"Cambio pastillas de freno"};
+        
+        //Crear diagnostico experto
+        Dictionary<string, List<string>> dicOrdenE = new();
+        dicOrdenE.Add("001",diagnostico1);
+        Dictionary<string, List<string>> dicOrdenE2 = new();
+        dicOrdenE2.Add("001",diagnostico2);
 
+        
+        //DiagExperto falsoDiag = new(dicOrdenE);
+       // DiagExperto falsoDiag2 = new(dicOrdenE2);
+
+        //DicDiagnosticos.Add("999",falsoDiag);
+        //DicDiagnosticos.Add("888",falsoDiag2);
+        //DicDiagnosticos["888"].Diagnosticos.Add("002",diagnostico1);
 
         mOrdenServicios.MostrarOrdenes(DicOrdenesS,DicDiagnosticos);
         mDiagExpertos.NuevoDiganostico(DicEmpleados,DicOrdenesS,DicDiagnosticos);
@@ -93,6 +108,9 @@ internal class Program
 
         mOrdenServicios.MostrarOrdenes(DicOrdenesS,DicDiagnosticos);
 
+        //Asignar orden de reparacion 
+        mOrdenReparacions.NuevaOrdenReparacion(DicEmpleados,DicOrdenesS,DicDiagnosticos,DicOrdenesR);
+        //generar facturas
 
         
     }

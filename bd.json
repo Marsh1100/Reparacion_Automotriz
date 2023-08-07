@@ -1,0 +1,88 @@
+{
+    "Clientes":
+    {
+
+        "10056287414":
+        {
+            "Nombre": "Pepito",
+            "Apellido": "López",
+            "Teléfono": 3004785214,
+            "email":"pepito.l@gmail.com",
+            "fechaRegistro": "2023/5/30"
+        }
+    },
+
+    "RVehiculos":
+    {
+        "KSQ400": 
+        {
+            "IdCliente": "10056287414",
+            "Modelo": "2020",
+            "Marca": "Renault",
+            "Color": "Blanco",
+            "Kilometraje": 10585
+        }
+    },
+
+    "Empleados":
+    {
+        "100459632":
+        {
+            "Nombre": "Pepito",
+            "Telefono": 3215849624,
+            "Especialidad": ["Eléctrico", "Caja de cambios"]
+        }
+    },
+
+    "OrdenesServicio":
+    {
+        "001":
+        {
+            "Fecha":"2023/06/15",
+            "IdCliente": "10056287414",
+            "Placa": "KSQ400",
+            "DiagnosticoCliente": "El carro no prende :v",
+            "Finalizada": false
+        }
+    },
+
+    "DiagnosticoExperto":
+    {
+        "100459632":
+        {
+            "Orden": "001",
+            "Diagnosticos": ["Falla irreparable motor"]
+        }
+    }, 
+
+    "OrdenExperto":
+    {
+        "100459632": {
+            "001": {"diagnosticos":["Falla irreparable motor"], "resuelto":false },
+            "002":["Cambio de aceite"]
+                
+        }
+    }
+    ,
+
+    "OrdenesReparacion":
+    {
+        "100459632":
+        {
+            "001":{
+                "Fecha": "2023/07/18",
+                "Repuestos":
+                [
+                    {
+                        "Nombre": "Tornillo23",
+                        "ValorU": 3500,
+                        "Cantidad": 3,
+                        "Estado": false
+                    }
+                ]
+        }
+        }
+    }
+
+  
+}

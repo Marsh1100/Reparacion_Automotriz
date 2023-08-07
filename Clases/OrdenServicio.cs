@@ -82,7 +82,7 @@ namespace Reparacion_Automotriz.Clases
             }
         }
 
-        public void MostrarOrdenes(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, DiagExperto> DicDiagnosticos)
+        public void MostrarOrdenes(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, OrdenExperto> DicDiagnosticos)
         {
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -90,7 +90,7 @@ namespace Reparacion_Automotriz.Clases
             Console.ResetColor();
 
            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("N° Orden\tPlaca\tID Cliente\t Cant. DiagExperto\tResuelta");
+            Console.WriteLine("N° Orden\tPlaca\tID Cliente\t Orden de experto\tResuelta");
             Console.ResetColor();
 
             foreach(var orden in DicOrdenesS)
@@ -104,13 +104,12 @@ namespace Reparacion_Automotriz.Clases
                 }
 
                 //Saber cuantos especialistas han dado opinion respecto a una orden de servicio
-                Dictionary<string, DiagExperto> filtroDiag = new();
-
+                Dictionary<string, OrdenExperto> filtroDiag = new();
                 foreach(var diagExp in DicDiagnosticos)   
                 {
                     string idEmpleado  =diagExp.Key;
                     //Obtiene las ordenes de servicio que tiene cada empleado
-                    var diagnosticos = DicDiagnosticos[idEmpleado].Diagnosticos;
+                    var diagnosticos = DicDiagnosticos[idEmpleado].OrdenExp;
 
                     if(diagnosticos.ContainsKey(orden.Key))
                     {
@@ -121,6 +120,33 @@ namespace Reparacion_Automotriz.Clases
 
                 int cantidad = filtroDiag.Count;           
                 Console.WriteLine("{0}\t\t{1}\t{2}\t\t\t{3}\t\t{4}", orden.Key, orden.Value.Idplaca, orden.Value.IdCliente, cantidad, oResuelta);
+                
+                if(filtroDiag.Count>0){
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Diagnósticos de especialistas:");
+                    Console.ResetColor();
+                    foreach(var item in filtroDiag){
+                        string idEmpleado  =item.Key;
+
+                        var listaDiag = filtroDiag[idEmpleado].OrdenExp[orden.Key].Diagnosticos;
+                        
+                        string estado;
+                        if(filtroDiag[idEmpleado].OrdenExp[orden.Key].OrdenReparacion){
+                            estado = "Tiene orden de reparación";
+                        }else{
+                            estado = "Sin orden de reparación";
+
+                        }
+
+                        Console.WriteLine("ID Empleado: {0} \tObservaciones:",idEmpleado );
+                        foreach(var item2 in listaDiag)
+                        {
+                            Console.WriteLine("\t\t\t-"+item2+"\t");
+                        }
+                        Console.WriteLine("Estado: {0}", estado);
+                } 
+                }
+                Console.WriteLine("-------------------------------------------------------------------------");
 
             }
 

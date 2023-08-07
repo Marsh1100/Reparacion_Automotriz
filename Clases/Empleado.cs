@@ -76,10 +76,13 @@ namespace Reparacion_Automotriz.Clases
                     especialidades.Add(Convert.ToString(Console.ReadLine()));
 
                     Console.WriteLine("¿Desea ingresar otra especialidad?\n1.Sí\n2.No");
-                    int rta = Int32.Parse(Console.ReadLine());
-                    if(rta ==1)
+                    string rta = Convert.ToString(Console.ReadLine());
+                    if(rta =="1")
                     {
                         continuar = true;
+                    }else if(rta !="2"){
+                        Console.WriteLine("El valor es inválido");
+                        continuar = false;
                     }else{
                         continuar = false;
                     }
