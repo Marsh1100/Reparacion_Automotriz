@@ -1,5 +1,6 @@
 namespace Reparacion_Automotriz.Clases
 {
+    
     public class OrdenServicio
     {
         //Atributos
@@ -81,13 +82,43 @@ namespace Reparacion_Automotriz.Clases
             }
         }
 
-        public void MostrarOrdenes(Dictionary<string, Cliente> DicClientes,Dictionary<string, Vehiculo> DicVehiculos,Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, DiagExperto> DicDiagnosticos)
+        public void MostrarOrdenes(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, DiagExperto> DicDiagnosticos)
         {
+
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("------------ ORDENES DE SERVICIO ------------");
+            Console.WriteLine("-------------------------- ORDENES DE SERVICIO --------------------------");
             Console.ResetColor();
 
-            
+           Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("N° Orden\tPlaca\tID Cliente\t Cant. DiagExperto\tResuelta");
+            Console.ResetColor();
+
+            foreach(var orden in DicOrdenesS)
+            {
+                bool ordenResuelta = orden.Value.finalizada;
+                string oResuelta;
+                if(ordenResuelta){
+                     oResuelta = "✅";
+                }else{
+                    oResuelta = "❌";
+                }
+
+                Dictionary<string, DiagExperto> filtroDiag = new();
+
+                foreach(var diagExp in DicDiagnosticos)   
+                {
+                    if(diagExp.Value.IdOrden == orden.Key)
+                    {
+                        filtroDiag.Add(diagExp.Key, diagExp.Value);
+                    }
+                }   
+
+                int cantidad = filtroDiag.Count;           
+                Console.WriteLine("{0}\t\t{1}\t{2}\t\t\t{3}\t\t{4}", orden.Key, orden.Value.Idplaca, orden.Value.IdCliente, cantidad, oResuelta);
+
+            }
+
+
         }
     }
 }
