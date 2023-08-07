@@ -103,14 +103,20 @@ namespace Reparacion_Automotriz.Clases
                     oResuelta = "❌";
                 }
 
+                //Saber cuantos especialistas han dado opinion respecto a una orden de servicio
                 Dictionary<string, DiagExperto> filtroDiag = new();
 
                 foreach(var diagExp in DicDiagnosticos)   
                 {
-                    if(diagExp.Value.IdOrden == orden.Key)
+                    string idEmpleado  =diagExp.Key;
+                    //Obtiene las ordenes de servicio que tiene cada empleado
+                    var diagnosticos = DicDiagnosticos[idEmpleado].Diagnosticos;
+
+                    if(diagnosticos.ContainsKey(orden.Key))
                     {
                         filtroDiag.Add(diagExp.Key, diagExp.Value);
                     }
+                    
                 }   
 
                 int cantidad = filtroDiag.Count;           
