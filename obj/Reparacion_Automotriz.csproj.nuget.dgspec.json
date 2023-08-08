@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj": {}
+    "/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/Reparacion_Automotriz.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj": {
+    "/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/Reparacion_Automotriz.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj",
+        "projectUniqueName": "/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/Reparacion_Automotriz.csproj",
         "projectName": "Reparacion_Automotriz",
-        "projectPath": "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\obj\\",
+        "projectPath": "/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/Reparacion_Automotriz.csproj",
+        "packagesPath": "/home/arteN01-061/.nuget/packages/",
+        "outputPath": "/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/arteN01-061/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.109/RuntimeIdentifierGraph.json"
         }
       }
     }

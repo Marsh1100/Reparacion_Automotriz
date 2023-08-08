@@ -1,15 +1,30 @@
-D:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.exe
-D:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.deps.json
-D:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.runtimeconfig.json
-D:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.dll
-D:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.pdb
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.csproj.AssemblyReference.cache
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.GeneratedMSBuildEditorConfig.editorconfig
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.AssemblyInfoInputs.cache
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.AssemblyInfo.cs
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.csproj.CoreCompileInputs.cache
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.dll
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\refint\Reparacion_Automotriz.dll
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.pdb
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.genruntimeconfig.cache
-D:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\ref\Reparacion_Automotriz.dll
+D:/Documents/Campus Programmer/Reparacion_Automotriz/bin/Debug/net7.0/Reparacion_Automotriz.exe
+D:/Documents/Campus Programmer/Reparacion_Automotriz/bin/Debug/net7.0/Reparacion_Automotriz.deps.json
+D:/Documents/Campus Programmer/Reparacion_Automotriz/bin/Debug/net7.0/Reparacion_Automotriz.runtimeconfig.json
+D:/Documents/Campus Programmer/Reparacion_Automotriz/bin/Debug/net7.0/Reparacion_Automotriz.dll
+D:/Documents/Campus Programmer/Reparacion_Automotriz/bin/Debug/net7.0/Reparacion_Automotriz.pdb
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.csproj.AssemblyReference.cache
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.GeneratedMSBuildEditorConfig.editorconfig
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.AssemblyInfoInputs.cache
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.AssemblyInfo.cs
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.csproj.CoreCompileInputs.cache
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.dll
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/refint/Reparacion_Automotriz.dll
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.pdb
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.genruntimeconfig.cache
+D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/ref/Reparacion_Automotriz.dll
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/bin/Debug/net7.0/Reparacion_Automotriz
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/bin/Debug/net7.0/Reparacion_Automotriz.deps.json
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/bin/Debug/net7.0/Reparacion_Automotriz.runtimeconfig.json
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/bin/Debug/net7.0/Reparacion_Automotriz.dll
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/bin/Debug/net7.0/Reparacion_Automotriz.pdb
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.csproj.AssemblyReference.cache
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.GeneratedMSBuildEditorConfig.editorconfig
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.AssemblyInfoInputs.cache
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.AssemblyInfo.cs
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.csproj.CoreCompileInputs.cache
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.dll
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/refint/Reparacion_Automotriz.dll
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.pdb
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/Reparacion_Automotriz.genruntimeconfig.cache
+/home/arteN01-061/Documents/Margie_Bocanegra/Reparacion_Automotriz-1/obj/Debug/net7.0/ref/Reparacion_Automotriz.dll
