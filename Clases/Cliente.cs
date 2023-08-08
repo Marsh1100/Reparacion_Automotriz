@@ -154,7 +154,7 @@ namespace Reparacion_Automotriz.Clases
             //Mostrar Clientes
             MostrarClientes(DicClientes);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("************* DATOS DE LA ORDEN ************");
+            Console.WriteLine("************* Aprobar orden de reparación ************");
             Console.ResetColor();
 
             Console.WriteLine("Ingrese número de identificación del cliente:");
@@ -162,80 +162,113 @@ namespace Reparacion_Automotriz.Clases
 
             if(DicClientes.ContainsKey(idCliente))
                 {
-                    //Se almacenan las ordenes que no estan finalizadas
+                //Se almacenan las ordenes que no estan finalizadas
                 List<AprobarOrden> filtrarO = new();
+                int cont = 1;
                 foreach(var orden in DicOrdenesS){
                     if(idCliente.Equals(orden.Value.IdCliente)){
                         
                         //ERROR AL EXISTIR DOS DIAGNOSTICOS POR PARTE DEL EXPERTO A UNA MISMA ORDENNN , MAYBE ARREGLAR CON ID DE EMPLEADO :D :'D :') :'| :'( :'c :'C
-                        foreach(var item in DicDiagnosticos){
-                            if(item.Value.OrdenExp.TryGetValue(orden.Key, out var diagExperto)){
-                                if(diagExperto.OrdenReparacion){
 
-                                    foreach(var ordenR in DicOrdenesR){
-                                        if(ordenR.Value.InfoReparacion.TryGetValue(orden.Key, out var InfAprobar)){
+                        foreach(var ordenR in DicOrdenesR){
+                            if (ordenR.Value.InfoReparacion.TryGetValue(orden.Key, out _)){
 
-                                        filtrarO.Add(new AprobarOrden(){
-                                            IdOrden = orden.Key, IdEmpleado=ordenR.Key
-                                        });
-                                        }
-                                    }
-                                    //filtrarO.Add(orden.Key, orden.Value);
+                                filtrarO.Add(new AprobarOrden(){
+                                    IdOrden = orden.Key+"-"+cont, IdEmpleado=ordenR.Key 
+                                });
+                                cont +=1;
 
-                                }
                             }
                         }
-                        
+                        //filtrarO.Add(orden.Key, orden.Value);           
                     }
                 }
 
                 if(filtrarO.Count>0){
-                    Console.WriteLine("\nOrden\tPlaca\tFecha");
+
+                    Console.ForegroundColor = ConsoleColor.Yellow; Console.WriteLine("Ordenes de servicio:");                     Console.ResetColor();
+                    Console.WriteLine("\nOrden\tPlaca\tFecha\tEmpleado a cargo");
 
                     foreach(var item in filtrarO){
-                        Console.WriteLine(item.IdOrden+"\t"+item.IdEmpleado);
-                    }
-                    /*foreach(var ordenF in filtrarO){
-                        Console.WriteLine("{0}\t{1}\t{2}",ordenF.Key,ordenF.Value.Idplaca, ordenF.Value.Fecha);
+                        string[] splitOrden = item.IdOrden.Split("-");
+                        string placa = DicOrdenesS[splitOrden[0]].Idplaca;
+                        string fecha = DicOrdenesS[splitOrden[0]].Fecha;
+                        string idempleado =DicEmpleados[item.IdEmpleado].Nombre;
 
+                        Console.WriteLine(item.IdOrden+"\t"+placa+"\t"+fecha+"\t"+idempleado);
                     }
-                    Console.WriteLine("Ingrese la orden que desea aprobar:");
+
+                    Console.WriteLine("\nIngrese la orden que desea aprobar:");
                     string idorden = Convert.ToString(Console.ReadLine());
 
-                    if(filtrarO.ContainsKey(idorden)){
-                        
-                        string placa = DicOrdenesS[idorden].Idplaca;
-                        foreach(var item in DicDiagnosticos){
-                            
-                            if(DicDiagnosticos.ContainsKey(item.Key)){
-                                if(DicDiagnosticos[item.Key].OrdenExp.ContainsKey(idorden)){
-                                    string idEmpleado = item.Key;
-                                break;
-                                }
-                            }
+                    //Obtener ID de la orden y del empleado 
+                    string idEmpleado = "0";
+                    
+                    foreach(var item in filtrarO){
+                        if(idorden.Equals(item.IdOrden)){
+                            idEmpleado = item.IdEmpleado;
+                            break;
+                        }
+                    }
+                    if(idEmpleado != "0"){
+                        //Datos para la orden completa de servicio
+                        string[] splitOrden = idorden.Split("-");
+                        string idOrden = splitOrden[0];
+                        string placa = DicOrdenesS[idOrden].Idplaca;
+                        string fecha =DicOrdenesS[idOrden].Fecha;
+                        string especialidades ="";
+                        foreach(var esp in DicEmpleados[idEmpleado].Especialidad){
+                            especialidades += "-"+esp+"\n\t";
+                        }
+
+                        string diagnosticoExp = "";
+
+                        foreach(var diag in DicDiagnosticos[idEmpleado].OrdenExp[idOrden].Diagnosticos){
+                            diagnosticoExp += "-"+diag+"\t";
                         }
                         //Mostrar orden completa
-                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DATOS DE LA ORDEN ****************");                     Console.ResetColor();
-                        Console.WriteLine("Nro Orden: {0}\t\tFecha: {1}", idorden, DicOrdenesS[idorden].Fecha);
+                        Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("\n**************** DATOS DE LA ORDEN ****************");                     Console.ResetColor();
+                        Console.WriteLine("Nro Orden: {0}\t\tFecha: {1}", idorden, DicOrdenesS[idOrden].Fecha);
                         Console.WriteLine("Id Cliente: {0}\t\tNombre Cliente: {1}", idCliente, DicClientes[idCliente].Nombre);
 
-                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DATOS DEL VEHÍCULO ****************");                     Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("**************** DATOS DEL VEHÍCULO ****************");                     Console.ResetColor();
                         Console.WriteLine("Nro Placa: {0}\t\tKilometraje: {1}", placa, DicVehiculos[placa].Km );
 
-                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DIAGNÓSTICO CLIENTE ****************");                     Console.ResetColor();
-                        Console.WriteLine(DicOrdenesS[idorden].DiagCliente);
-                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DIAGNÓSTICO EXPERTO ****************");                     Console.ResetColor();
-                        Console.WriteLine("Id Empleado: {0}\t\tNombre: {1}", "000", "Pepito");
+                        Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("**************** DIAGNÓSTICO CLIENTE ****************");                     Console.ResetColor();
+                        Console.WriteLine(DicOrdenesS[idOrden].DiagCliente);
+                        Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("**************** DATOS DEL PERSONAL ****************");                     Console.ResetColor();
+                        Console.WriteLine("Id Empleado: {0}\t\tNombre: {1}\nEspecialidad:{2}", idEmpleado, DicEmpleados[idEmpleado].Nombre,especialidades);
+                        Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("**************** DIAGNÓSTICO EXPERTO ****************");                     Console.ResetColor();
+                        Console.WriteLine(diagnosticoExp);
+                        Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("*********************************************");                     Console.ResetColor();
 
-                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************************** ****************");                     Console.ResetColor();
+                        Console.ReadKey();
 
-                        //Tabla de aprobación
-                        Console.WriteLine("");
-                        
+                        MostrarOrdenAprobacion(DicOrdenesR,idEmpleado,idOrden, fecha);
+
+
+                        foreach(var r in DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Repuestos)
+                        {
+                            Console.WriteLine("¿Desea aprobar el respuesto {0}\n1.Sí\n2.No",r.Nombre);
+                            string rta = Convert.ToString(Console.ReadLine());
+                                    if(rta =="1")
+                                    {
+                                        r.Estado = true;
+                                    }else if(rta !="2"){
+                                        Console.WriteLine("El valor es inválido");
+                                        r.Estado = false;
+                                    }else{
+                                        r.Estado = false;
+
+                                    }
+                        }
+
+                        MostrarOrdenAprobacion(DicOrdenesR,idEmpleado,idOrden, fecha);
+
 
                     }else{
-                        Console.WriteLine("El número de orden no es correcto.");
-                    }*/
+                        Console.WriteLine("No se encuentra la orden ingresada");
+                    }
 
                 }else{
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -250,6 +283,28 @@ namespace Reparacion_Automotriz.Clases
             }
             
             
+
+        }
+
+        public void MostrarOrdenAprobacion(Dictionary<string, OrdenReparacion> DicOrdenesR, string idEmpleado, string idOrden, string fecha)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n---------------------------------------------------------");                     Console.ResetColor(); 
+            Console.WriteLine("Nro Orden: {0}\tFecha:",idOrden,fecha);
+            Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n******************** DETALLE DE APROBACIÓN ***************");                     Console.ResetColor(); 
+            Console.WriteLine("Item\tRepuesto\tValorU\tCant\tValor Total\tEstado");
+
+            int cont = 1;
+            foreach(var r in DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Repuestos)
+            {
+                float total = r.ValorU *r.Cantidad;
+                string estado = r.Estado ? "A":"R" ;
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}", cont,r.Nombre, r.ValorU, r.Cantidad, total,estado);
+                cont +=1;
+            }
+
+            Console.ReadKey();
+
+
 
         }
         
