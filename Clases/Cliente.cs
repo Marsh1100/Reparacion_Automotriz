@@ -149,7 +149,7 @@ namespace Reparacion_Automotriz.Clases
             Console.ReadKey();
 
             }
-        public void AprobarOrdenServicio(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos, Dictionary<string, OrdenExperto> DicDiagnosticos)
+        public void AprobarOrdenServicio(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos, Dictionary<string, OrdenExperto> DicDiagnosticos, Dictionary<string, Empleado> DicEmpleados)
         {
             //Mostrar Clientes
             MostrarClientes(DicClientes);
@@ -167,10 +167,13 @@ namespace Reparacion_Automotriz.Clases
                 foreach(var orden in DicOrdenesS){
                     if(idCliente.Equals(orden.Value.IdCliente)){
                         
+                        //ERROR AL EXISTIR DOS DIAGNOSTICOS POR PARTE DEL EXPERTO A UNA MISMA ORDENNN , MAYBE ARREGLAR CON ID DE EMPLEADO :D :'D :') :'| :'( :'c :'C
                         foreach(var item in DicDiagnosticos){
+                            if(item.Value.OrdenExp.ContainsKey(orden.Key)){
                             if(item.Value.OrdenExp[orden.Key].OrdenReparacion){
                                 filtrarO.Add(orden.Key, orden.Value);
 
+                            }
                             }
                         }
                         
@@ -189,13 +192,37 @@ namespace Reparacion_Automotriz.Clases
                     if(filtrarO.ContainsKey(idorden)){
                         
                         string placa = DicOrdenesS[idorden].Idplaca;
+                        foreach(var item in DicDiagnosticos){
+                            
+                            if(DicDiagnosticos.ContainsKey(item.Key)){
+                                if(DicDiagnosticos[item.Key].OrdenExp.ContainsKey(idorden)){
+                                    string idEmpleado = item.Key;
+                                break;
+                                }
+                            }
+                        }
                         //Mostrar orden completa
                         Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DATOS DE LA ORDEN ****************");                     Console.ResetColor();
                         Console.WriteLine("Nro Orden: {0}\t\tFecha: {1}", idorden, DicOrdenesS[idorden].Fecha);
-                        Console.WriteLine("Id Cliente: {0}\tNombre Cliente: {1}", idCliente, DicClientes[idCliente].Nombre);
+                        Console.WriteLine("Id Cliente: {0}\t\tNombre Cliente: {1}", idCliente, DicClientes[idCliente].Nombre);
 
                         Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DATOS DEL VEHÍCULO ****************");                     Console.ResetColor();
-                        Console.WriteLine("Nro Placa: {0}\t\tKmtraje: {1}", placa, DicVehiculos[placa].Km );
+                        Console.WriteLine("Nro Placa: {0}\t\tKilometraje: {1}", placa, DicVehiculos[placa].Km );
+
+                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DIAGNÓSTICO CLIENTE ****************");                     Console.ResetColor();
+                        Console.WriteLine(DicOrdenesS[idorden].DiagCliente);
+                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DIAGNÓSTICO EXPERTO ****************");                     Console.ResetColor();
+                        Console.WriteLine("Id Empleado: {0}\t\tNombre: {1}", "000", "Pepito");
+
+                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************************** ****************");                     Console.ResetColor();
+
+                        //Tabla de aprobación
+                        Console.WriteLine("");
+
+
+
+
+                        
 
                     }else{
                         Console.WriteLine("El número de orden no es correcto.");
