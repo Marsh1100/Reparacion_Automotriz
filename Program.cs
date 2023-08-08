@@ -184,7 +184,7 @@ internal class Program
                     break;
                 case "4": //Aprobar orden de reparación
                     //Mostrar ordenes
-                    mClientes.AprobarOrdenServicio(DicOrdenesS,DicClientes,DicVehiculos,DicDiagnosticos, DicEmpleados);
+                    mClientes.AprobarOrdenServicio(DicOrdenesS,DicClientes,DicVehiculos,DicDiagnosticos, DicEmpleados, DicOrdenesR);
                     break;
                 case "5": //Solicitar factura
                     break;

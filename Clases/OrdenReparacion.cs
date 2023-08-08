@@ -43,7 +43,7 @@ namespace Reparacion_Automotriz.Clases
                 mDiagExpertos.MostrarOrdenes(DicEmpleados,DicDiagnosticos,idEmpleado);
 
                 Console.WriteLine("Ingrese número de orden:");
-                string idOrden = Convert.ToString(Console.ReadLine())+"-"+idEmpleado;
+                string idOrden = Convert.ToString(Console.ReadLine());
 
                 if(DicOrdenesR.ContainsKey(idEmpleado)){
                    
@@ -179,10 +179,9 @@ namespace Reparacion_Automotriz.Clases
                             };
 
                             OrdenReparacion newOrdenReparacion = new(newOrdenRepuesto);
-                            string[] words = idOrden.Split('-');
 
                             DicOrdenesR.Add(idEmpleado,newOrdenReparacion);
-                            DicDiagnosticos[idEmpleado].OrdenExp[words[0]].OrdenReparacion = true;
+                            DicDiagnosticos[idEmpleado].OrdenExp[idOrden].OrdenReparacion = true;
 
                             continuar = false;
                         }

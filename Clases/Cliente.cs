@@ -149,7 +149,7 @@ namespace Reparacion_Automotriz.Clases
             Console.ReadKey();
 
             }
-        public void AprobarOrdenServicio(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos, Dictionary<string, OrdenExperto> DicDiagnosticos, Dictionary<string, Empleado> DicEmpleados)
+        public void AprobarOrdenServicio(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos, Dictionary<string, OrdenExperto> DicDiagnosticos, Dictionary<string, Empleado> DicEmpleados, Dictionary<string, OrdenReparacion> DicOrdenesR)
         {
             //Mostrar Clientes
             MostrarClientes(DicClientes);
@@ -160,18 +160,27 @@ namespace Reparacion_Automotriz.Clases
             Console.WriteLine("Ingrese número de identificación del cliente:");
             string idCliente = Convert.ToString(Console.ReadLine());
 
-             if(DicClientes.ContainsKey(idCliente))
+            if(DicClientes.ContainsKey(idCliente))
                 {
                     //Se almacenan las ordenes que no estan finalizadas
-                Dictionary<string,OrdenServicio> filtrarO = new();
+                List<AprobarOrden> filtrarO = new();
                 foreach(var orden in DicOrdenesS){
                     if(idCliente.Equals(orden.Value.IdCliente)){
                         
                         //ERROR AL EXISTIR DOS DIAGNOSTICOS POR PARTE DEL EXPERTO A UNA MISMA ORDENNN , MAYBE ARREGLAR CON ID DE EMPLEADO :D :'D :') :'| :'( :'c :'C
                         foreach(var item in DicDiagnosticos){
-                            if(item.Value.OrdenExp.ContainsKey(orden.Key)){
-                                if(item.Value.OrdenExp[orden.Key].OrdenReparacion){
-                                    filtrarO.Add(orden.Key, orden.Value);
+                            if(item.Value.OrdenExp.TryGetValue(orden.Key, out var diagExperto)){
+                                if(diagExperto.OrdenReparacion){
+
+                                    foreach(var ordenR in DicOrdenesR){
+                                        if(ordenR.Value.InfoReparacion.TryGetValue(orden.Key, out var InfAprobar)){
+
+                                        filtrarO.Add(new AprobarOrden(){
+                                            IdOrden = orden.Key, IdEmpleado=ordenR.Key
+                                        });
+                                        }
+                                    }
+                                    //filtrarO.Add(orden.Key, orden.Value);
 
                                 }
                             }
@@ -182,7 +191,11 @@ namespace Reparacion_Automotriz.Clases
 
                 if(filtrarO.Count>0){
                     Console.WriteLine("\nOrden\tPlaca\tFecha");
-                    foreach(var ordenF in filtrarO){
+
+                    foreach(var item in filtrarO){
+                        Console.WriteLine(item.IdOrden+"\t"+item.IdEmpleado);
+                    }
+                    /*foreach(var ordenF in filtrarO){
                         Console.WriteLine("{0}\t{1}\t{2}",ordenF.Key,ordenF.Value.Idplaca, ordenF.Value.Fecha);
 
                     }
@@ -218,21 +231,18 @@ namespace Reparacion_Automotriz.Clases
 
                         //Tabla de aprobación
                         Console.WriteLine("");
-
-
-
-
                         
 
                     }else{
                         Console.WriteLine("El número de orden no es correcto.");
-                    }
+                    }*/
 
                 }else{
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Aún no hay ordenes para aprobación.");
                     Console.ResetColor();
                 }
+           
             }else{
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("El ID del cliente no se encuentra registrado");
