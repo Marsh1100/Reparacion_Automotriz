@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj": {}
+    "d:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj": {
+    "d:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj",
+        "projectUniqueName": "d:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj",
         "projectName": "Reparacion_Automotriz",
-        "projectPath": "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj",
+        "projectPath": "d:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\Reparacion_Automotriz.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\obj\\",
+        "outputPath": "d:\\Documents\\Campus Programmer\\Reparacion_Automotriz\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config"
