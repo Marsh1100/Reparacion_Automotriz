@@ -59,6 +59,8 @@ namespace Reparacion_Automotriz.Clases
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("Repuestos para aprobación:");
                     Console.ResetColor();
+                    List<Repuesto> listaRepuestos = new();
+
                     do{
                         Console.WriteLine("Ingrese nombre de repuesto:");
                         string nombre = Convert.ToString(Console.ReadLine());
@@ -68,9 +70,7 @@ namespace Reparacion_Automotriz.Clases
                         int cantidad = int.Parse(Console.ReadLine());
 
                          //Lista de repuestos
-                        List<Repuesto> listaRepuestos = new();
                         Repuesto newRepuesto = new(nombre,valorUnitario,cantidad);
-
                         listaRepuestos.Add(newRepuesto);
 
                         Console.WriteLine("Repuesto agregado!");
@@ -113,6 +113,8 @@ namespace Reparacion_Automotriz.Clases
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.WriteLine("Repuestos para aprobación:");
                     Console.ResetColor();
+                    List<Repuesto> listaRepuestos = new();
+
                     do{
                         Console.WriteLine("Ingrese nombre de repuesto:");
                         string nombre = Convert.ToString(Console.ReadLine());
@@ -155,7 +157,6 @@ namespace Reparacion_Automotriz.Clases
                         }while(invalido);*/
 
                         //Lista de repuestos
-                        List<Repuesto> listaRepuestos = new();
                         Repuesto newRepuesto = new(nombre,valorUnitario,cantidad);
 
                         listaRepuestos.Add(newRepuesto);
