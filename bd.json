@@ -46,19 +46,11 @@
         }
     },
 
-    "DiagnosticoExperto":
-    {
-        "100459632":
-        {
-            "Orden": "001",
-            "Diagnosticos": ["Falla irreparable motor"]
-        }
-    }, 
 
     "OrdenExperto":
     {
         "100459632": {
-            "001": {"diagnosticos":["Falla irreparable motor"], "resuelto":false },
+            "001": {"diagnosticos":["Falla irreparable motor"], "resordenReparacionuelto":false },
             "002":["Cambio de aceite"]
                 
         }
@@ -80,7 +72,7 @@
                         "Estado": false
                     }
                 ]
-        }
+                }
         }
     }
 
