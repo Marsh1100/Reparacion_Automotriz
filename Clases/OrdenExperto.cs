@@ -143,6 +143,7 @@ namespace Reparacion_Automotriz.Clases
 
                         Console.WriteLine("Diagnóstico de experto registrado correctamente!.");
                     MostrarDiagnosticos(DicDiagnosticos,idEmpleado,idOrden);
+                    
                     }else{
                         Console.WriteLine("El número de identificación del empleado no se encuentra registrado.");
 

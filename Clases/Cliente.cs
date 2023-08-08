@@ -170,10 +170,10 @@ namespace Reparacion_Automotriz.Clases
                         //ERROR AL EXISTIR DOS DIAGNOSTICOS POR PARTE DEL EXPERTO A UNA MISMA ORDENNN , MAYBE ARREGLAR CON ID DE EMPLEADO :D :'D :') :'| :'( :'c :'C
                         foreach(var item in DicDiagnosticos){
                             if(item.Value.OrdenExp.ContainsKey(orden.Key)){
-                            if(item.Value.OrdenExp[orden.Key].OrdenReparacion){
-                                filtrarO.Add(orden.Key, orden.Value);
+                                if(item.Value.OrdenExp[orden.Key].OrdenReparacion){
+                                    filtrarO.Add(orden.Key, orden.Value);
 
-                            }
+                                }
                             }
                         }
                         
