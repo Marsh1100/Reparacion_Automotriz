@@ -45,8 +45,67 @@ namespace Reparacion_Automotriz.Clases
                 Console.WriteLine("Ingrese número de orden:");
                 string idOrden = Convert.ToString(Console.ReadLine());
 
-                if(DicOrdenesS.ContainsKey(idOrden)){
-                    //validar fecha
+                if(DicOrdenesR.ContainsKey(idEmpleado)){
+                   
+                   if(DicOrdenesR[idEmpleado].InfoReparacion.ContainsKey(idOrden)){
+                    Console.WriteLine("Esta orden ya esta en estado de aprobación para el cliente");
+                   }else{
+
+                     //validar fecha
+                    Console.WriteLine("Ingrese fecha de orden de reparación en formato (YYYY-MM-DD):");
+                    string fecha = Convert.ToString(Console.ReadLine());
+
+                    bool continuar = true;
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("Repuestos para aprobación:");
+                    Console.ResetColor();
+                    do{
+                        Console.WriteLine("Ingrese nombre de repuesto:");
+                        string nombre = Convert.ToString(Console.ReadLine());
+                        Console.WriteLine("Ingrese valor unitario del repuesto {0}:",nombre);
+                        float valorUnitario = float.Parse(Console.ReadLine());
+                        Console.WriteLine("Ingrese cantidad del repuesto {0}:",nombre);
+                        int cantidad = int.Parse(Console.ReadLine());
+
+                         //Lista de repuestos
+                        List<Repuesto> listaRepuestos = new();
+                        Repuesto newRepuesto = new(nombre,valorUnitario,cantidad);
+
+                        listaRepuestos.Add(newRepuesto);
+
+                        Console.WriteLine("Repuesto agregado!");
+
+                        Console.WriteLine("¿Desea ingresar otro respuesto?\n1.Sí\n2.No");
+                        string rta = Convert.ToString(Console.ReadLine());
+                        if(rta =="1")
+                        {
+                            continuar = true;
+                        }else if(rta !="2"){
+                            Console.WriteLine("El valor es inválido");
+                            continuar = false;
+                        }else{
+                            InfoRepuesto newInfoRepuesto = new(fecha,listaRepuestos);
+
+                        
+                            DicOrdenesR[idEmpleado].InfoReparacion.Add(idOrden,newInfoRepuesto);
+                            
+                           
+                            DicDiagnosticos[idEmpleado].OrdenExp[idOrden].OrdenReparacion = true;
+
+                            continuar = false;
+                        }
+
+
+                    }while(continuar);
+
+
+                    
+                   }
+                    
+
+                }else if(DicDiagnosticos.ContainsKey(idEmpleado)){
+
+                     //validar fecha
                     Console.WriteLine("Ingrese fecha de orden de reparación en formato (YYYY-MM-DD):");
                     string fecha = Convert.ToString(Console.ReadLine());
 
@@ -101,6 +160,8 @@ namespace Reparacion_Automotriz.Clases
 
                         listaRepuestos.Add(newRepuesto);
 
+                        Console.WriteLine("Repuesto agregado!");
+
                         Console.WriteLine("¿Desea ingresar otro respuesto?\n1.Sí\n2.No");
                         string rta = Convert.ToString(Console.ReadLine());
                         if(rta =="1")
@@ -112,20 +173,21 @@ namespace Reparacion_Automotriz.Clases
                         }else{
                             InfoRepuesto newInfoRepuesto = new(fecha,listaRepuestos);
 
-                            Dictionary<string,InfoRepuesto> newOrdenRepuesto = new();
-                            newOrdenRepuesto.Add(idOrden,newInfoRepuesto);
+                            Dictionary<string, InfoRepuesto> newOrdenRepuesto = new()
+                            {
+                                { idOrden, newInfoRepuesto }
+                            };
 
                             OrdenReparacion newOrdenReparacion = new(newOrdenRepuesto);
 
                             DicOrdenesR.Add(idEmpleado,newOrdenReparacion);
+                            DicDiagnosticos[idEmpleado].OrdenExp[idOrden].OrdenReparacion = true;
 
                             continuar = false;
-
                         }
 
 
                     }while(continuar);
-
 
                 }else{
                     Console.WriteLine("El número de orden ingresado no esta asociado al empleado. por favor verificar");
@@ -137,5 +199,16 @@ namespace Reparacion_Automotriz.Clases
                 
             }
         }
+    
+        public void MostrarOrden(Dictionary<string, Empleado> DicEmpleados,Dictionary<string, OrdenServicio> DicOrdenesS,Dictionary<string, OrdenExperto> DicDiagnosticos, Dictionary<string, OrdenReparacion> DicOrdenesR){
+
+            Console.WriteLine("--------------- ORDEN DE REPARACIÓN DEL SERVICIO {0}---------------");
+            Console.ResetColor();
+
+
+
+        }
+
+        
     }
 }

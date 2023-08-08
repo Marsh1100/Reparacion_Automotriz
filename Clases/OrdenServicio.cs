@@ -27,19 +27,23 @@ namespace Reparacion_Automotriz.Clases
         public string IdCliente
         {
             get { return this.idCliente; }
+            set { this.idCliente = value;}
         }
         public string Fecha
         {
             get { return this.fecha;}
+            set { this.fecha = value;}
         }
 
         public string Idplaca{
             get { return this.idplaca;}
+            set { this.idplaca = value;}
         }
 
         public string DiagCliente
         {
             get { return this.diagCliente;}
+            set { this.diagCliente = value;}
         }
         //Métodos
 
@@ -122,7 +126,7 @@ namespace Reparacion_Automotriz.Clases
                 Console.WriteLine("{0}\t\t{1}\t{2}\t\t\t{3}\t\t{4}", orden.Key, orden.Value.Idplaca, orden.Value.IdCliente, cantidad, oResuelta);
                 
                 if(filtroDiag.Count>0){
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("Diagnósticos de especialistas:");
                     Console.ResetColor();
                     foreach(var item in filtroDiag){
@@ -130,20 +134,26 @@ namespace Reparacion_Automotriz.Clases
 
                         var listaDiag = filtroDiag[idEmpleado].OrdenExp[orden.Key].Diagnosticos;
                         
-                        string estado;
-                        if(filtroDiag[idEmpleado].OrdenExp[orden.Key].OrdenReparacion){
-                            estado = "Tiene orden de reparación";
-                        }else{
-                            estado = "Sin orden de reparación";
-
-                        }
-
                         Console.WriteLine("ID Empleado: {0} \tObservaciones:",idEmpleado );
                         foreach(var item2 in listaDiag)
                         {
                             Console.WriteLine("\t\t\t-"+item2+"\t");
                         }
+                        string estado;
+                        if(filtroDiag[idEmpleado].OrdenExp[orden.Key].OrdenReparacion){
+                            estado = "Tiene orden de reparación";
+                             Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("Estado: {0}", estado);
+                        Console.ResetColor();
+                        }else{
+                            estado = "Sin orden de reparación";
+                             Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Estado: {0}", estado);
+                        Console.ResetColor();
+
+                        }
+
+                       
                 } 
                 }
                 Console.WriteLine("-------------------------------------------------------------------------");
@@ -152,5 +162,8 @@ namespace Reparacion_Automotriz.Clases
 
 
         }
+
+
+        
     }
 }

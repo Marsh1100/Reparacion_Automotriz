@@ -28,7 +28,7 @@ namespace Reparacion_Automotriz.Clases
         public List<string> Especialidad
         {
             get{return this.especialidad;}
-            set{this.especialidad.AddRange(value);}
+            set{this.especialidad = value;}
         }
         public long Telefono
         {

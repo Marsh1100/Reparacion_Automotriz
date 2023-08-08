@@ -185,9 +185,10 @@ namespace Reparacion_Automotriz.Clases
         public void MostrarOrdenes(Dictionary<string, Empleado> DicEmpleados,Dictionary<string, OrdenExperto> DicDiagnosticos, string idEmpleado)
         {
             Console.WriteLine("Ordenes del empleado {0} con ID {1} ",DicEmpleados[idEmpleado].Nombre,idEmpleado);
+            Console.WriteLine("Orden\tEstado");
             foreach(var orden in  DicDiagnosticos[idEmpleado].OrdenExp)
             {
-                Console.WriteLine("- {0}", orden.Key);
+                Console.WriteLine("- {0}\t{1}", orden.Key,DicDiagnosticos[idEmpleado].OrdenExp[orden.Key].OrdenReparacion ? "Finalizado":"Sin finalizar");
             }
         }
     }

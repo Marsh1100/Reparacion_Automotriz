@@ -29,21 +29,26 @@ namespace Reparacion_Automotriz.Clases
         public string IdCliente
         {
             get { return this.idCliente; }
+            set { this.idCliente = value;}
         }
         public string Modelo
         {
             get{return this.modelo; }
+            set { this.modelo = value;}
         }
         public string Marca{
             get{return this.marca;}
+            set { this.marca = value;}
         }
         public string Color
         {
             get{return this.color;}
+            set { this.color = value;}
         }
         public long  Km
         {
             get{return this.km;}
+            set { this.km = value;}
         }
         //Métodos
 

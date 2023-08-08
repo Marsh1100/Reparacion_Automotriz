@@ -119,5 +119,111 @@ namespace Reparacion_Automotriz.Clases
 
         }
 
+
+        public void MostrarOrdenes(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes,Dictionary<string, OrdenExperto> DicDiagnosticos){
+
+            //Mostrar Clientes
+            MostrarClientes(DicClientes);
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("************* Ordenes de servicio ************");
+            Console.ResetColor();
+
+            Console.WriteLine("Ingrese número de identificación del cliente:");
+            string id = Convert.ToString(Console.ReadLine());
+
+            bool existe = false;
+            foreach(var orden in DicOrdenesS){
+                if(id.Equals(orden.Value.IdCliente)){
+                    Console.WriteLine("-{0}\tEstado:{1}",orden.Key, orden.Value.finalizada ? "Finalizada":"Sin finalizar" );
+                    
+                    existe = true;
+                }
+            }
+
+            if(!existe){
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("No hay ordenes de servicio con ese número de cédula finalizadas.");
+                Console.ResetColor();
+            }
+
+            Console.ReadKey();
+
+            }
+        public void AprobarOrdenServicio(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos, Dictionary<string, OrdenExperto> DicDiagnosticos)
+        {
+            //Mostrar Clientes
+            MostrarClientes(DicClientes);
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("************* DATOS DE LA ORDEN ************");
+            Console.ResetColor();
+
+            Console.WriteLine("Ingrese número de identificación del cliente:");
+            string idCliente = Convert.ToString(Console.ReadLine());
+
+             if(DicClientes.ContainsKey(idCliente))
+                {
+                    //Se almacenan las ordenes que no estan finalizadas
+                Dictionary<string,OrdenServicio> filtrarO = new();
+                foreach(var orden in DicOrdenesS){
+                    if(idCliente.Equals(orden.Value.IdCliente)){
+                        
+                        foreach(var item in DicDiagnosticos){
+                            if(item.Value.OrdenExp[orden.Key].OrdenReparacion){
+                                filtrarO.Add(orden.Key, orden.Value);
+
+                            }
+                        }
+                        
+                    }
+                }
+
+                if(filtrarO.Count>0){
+                    Console.WriteLine("\nOrden\tPlaca\tFecha");
+                    foreach(var ordenF in filtrarO){
+                        Console.WriteLine("{0}\t{1}\t{2}",ordenF.Key,ordenF.Value.Idplaca, ordenF.Value.Fecha);
+
+                    }
+                    Console.WriteLine("Ingrese la orden que desea aprobar:");
+                    string idorden = Convert.ToString(Console.ReadLine());
+
+                    if(filtrarO.ContainsKey(idorden)){
+                        
+                        string placa = DicOrdenesS[idorden].Idplaca;
+                        //Mostrar orden completa
+                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DATOS DE LA ORDEN ****************");                     Console.ResetColor();
+                        Console.WriteLine("Nro Orden: {0}\t\tFecha: {1}", idorden, DicOrdenesS[idorden].Fecha);
+                        Console.WriteLine("Id Cliente: {0}\tNombre Cliente: {1}", idCliente, DicClientes[idCliente].Nombre);
+
+                        Console.ForegroundColor = ConsoleColor.DarkCyan; Console.WriteLine("**************** DATOS DEL VEHÍCULO ****************");                     Console.ResetColor();
+                        Console.WriteLine("Nro Placa: {0}\t\tKmtraje: {1}", placa, DicVehiculos[placa].Km );
+
+                    }else{
+                        Console.WriteLine("El número de orden no es correcto.");
+                    }
+
+                }else{
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Aún no hay ordenes para aprobación.");
+                    Console.ResetColor();
+                }
+            }else{
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("El ID del cliente no se encuentra registrado");
+                Console.ResetColor();
+            }
+            
+            
+
+        }
+        
     }
+
+        
 }
+
+
+        
+
+
+        
+    
