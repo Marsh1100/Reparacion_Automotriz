@@ -149,7 +149,7 @@ namespace Reparacion_Automotriz.Clases
             Console.ReadKey();
 
             }
-        public void AprobarOrdenServicio(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos, Dictionary<string, OrdenExperto> DicDiagnosticos, Dictionary<string, Empleado> DicEmpleados, Dictionary<string, OrdenReparacion> DicOrdenesR)
+        public void AprobarOrdenServicio(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes, Dictionary<string, Vehiculo> DicVehiculos, Dictionary<string, OrdenExperto> DicDiagnosticos, Dictionary<string, Empleado> DicEmpleados, Dictionary<string, OrdenReparacion> DicOrdenesR,List<AprobarOrden> ListAprobaciones)
         {
             //Mostrar Clientes
             MostrarClientes(DicClientes);
@@ -162,7 +162,7 @@ namespace Reparacion_Automotriz.Clases
 
             if(DicClientes.ContainsKey(idCliente))
                 {
-                //Se almacenan las ordenes que no estan finalizadas
+                //Se almacenan las ordenes tienen orden de reparación
                 List<AprobarOrden> filtrarO = new();
                 int cont = 1;
                 foreach(var orden in DicOrdenesS){
@@ -228,7 +228,7 @@ namespace Reparacion_Automotriz.Clases
                         }
                         //Mostrar orden completa
                         Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("\n**************** DATOS DE LA ORDEN ****************");                     Console.ResetColor();
-                        Console.WriteLine("Nro Orden: {0}\t\tFecha: {1}", idorden, DicOrdenesS[idOrden].Fecha);
+                        Console.WriteLine("Nro Orden: {0}\t\tFecha: {1}", idorden, fecha);
                         Console.WriteLine("Id Cliente: {0}\t\tNombre Cliente: {1}", idCliente, DicClientes[idCliente].Nombre);
 
                         Console.ForegroundColor = ConsoleColor.Blue; Console.WriteLine("**************** DATOS DEL VEHÍCULO ****************");                     Console.ResetColor();
@@ -244,7 +244,7 @@ namespace Reparacion_Automotriz.Clases
 
                         Console.ReadKey();
 
-                        MostrarOrdenAprobacion(DicOrdenesR,idEmpleado,idOrden, fecha);
+                        MostrarOrdenAprobacion(DicOrdenesR,idEmpleado,idorden,ListAprobaciones);
 
 
                         foreach(var r in DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Repuestos)
@@ -263,7 +263,7 @@ namespace Reparacion_Automotriz.Clases
                                     }
                         }
 
-                        MostrarOrdenAprobacion(DicOrdenesR,idEmpleado,idOrden, fecha);
+                        MostrarOrdenAprobacion(DicOrdenesR,idEmpleado,idorden,ListAprobaciones);
 
 
                     }else{
@@ -275,7 +275,6 @@ namespace Reparacion_Automotriz.Clases
                     Console.WriteLine("Aún no hay ordenes para aprobación.");
                     Console.ResetColor();
                 }
-           
             }else{
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("El ID del cliente no se encuentra registrado");
@@ -286,26 +285,80 @@ namespace Reparacion_Automotriz.Clases
 
         }
 
-        public void MostrarOrdenAprobacion(Dictionary<string, OrdenReparacion> DicOrdenesR, string idEmpleado, string idOrden, string fecha)
+        public void MostrarOrdenAprobacion(Dictionary<string, OrdenReparacion> DicOrdenesR, string idEmpleado, string idorden,List<AprobarOrden> ListAprobaciones)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n---------------------------------------------------------");                     Console.ResetColor(); 
-            Console.WriteLine("Nro Orden: {0}\tFecha:",idOrden,fecha);
+            string[] splitOrden = idorden.Split("-");
+            string idOrden = splitOrden[0];
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n******************** ORDEN DE APROBACIÓN ***************");                     Console.ResetColor(); 
+            Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n---------------------------------------------------------");Console.ResetColor(); 
+            Console.WriteLine("Nro Orden: {0}\tFecha:{1}",idOrden,DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Fecha);
             Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n******************** DETALLE DE APROBACIÓN ***************");                     Console.ResetColor(); 
             Console.WriteLine("Item\tRepuesto\tValorU\tCant\tValor Total\tEstado");
 
             int cont = 1;
             foreach(var r in DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Repuestos)
             {
-                float total = r.ValorU *r.Cantidad;
+                double total = r.Cantidad *r.ValorU;
                 string estado = r.Estado ? "A":"R" ;
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}", cont,r.Nombre, r.ValorU, r.Cantidad, total,estado);
+                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", cont,r.Nombre, r.ValorU, r.Cantidad,total,estado);
                 cont +=1;
             }
+            AprobarOrden mAprobacion = new();
+
+            mAprobacion.NuevaAprobacion(ListAprobaciones,idorden,idEmpleado );
+
+            Console.WriteLine("Su orden de aprobación ha sido generada. Ya puede consultar su factura!");
+
 
             Console.ReadKey();
+        }
 
 
+        public void Facturacion(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes,Dictionary<string, OrdenReparacion> DicOrdenesR,List<AprobarOrden> ListAprobaciones)
+        {
+            MostrarClientes(DicClientes);
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("**************** Facturación ***************");
+            Console.ResetColor();
 
+            Console.WriteLine("Ingrese número de identificación del cliente:");
+            string idCliente = Convert.ToString(Console.ReadLine());
+
+            if(DicClientes.ContainsKey(idCliente))
+            {
+                
+                
+                List<string> filtrarO = new(); //Filtramos las ordenes aprobadas que tenga el cliente.
+                foreach(var item in ListAprobaciones)
+                {
+                    if(item.IdEmpleado.Equals(idCliente) && item.Aprobada)
+                    {
+                        filtrarO.Add(item.IdOrden);
+                    }
+                }
+
+                if(filtrarO.Count()>0){
+                    Console.ForegroundColor = ConsoleColor.Yellow; Console.WriteLine("Ordenes de servicio apropadas:");                     Console.ResetColor();
+                    Console.WriteLine("\nOrden\tPlaca\tFecha\tEmpleado a cargo");
+
+                    foreach(var item in filtrarO){
+                        string[] splitOrden = item.Split("-");
+                        string placa = DicOrdenesS[splitOrden[0]].Idplaca;
+                        string fecha = DicOrdenesS[splitOrden[0]].Fecha;
+                        //string idempleado =Dic[idC].Nombre;
+
+                        //Console.WriteLine(item.IdOrden+"\t"+placa+"\t"+fecha+"\t"+idempleado);
+                    }
+
+                }else{
+                    Console.WriteLine("No se ha encontrado niguna orden en estado apropada por parte del cliente :c");
+                }
+            }else{
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("El ID del cliente no se encuentra registrado");
+                Console.ResetColor();
+            }
         }
         
     }

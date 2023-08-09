@@ -39,6 +39,9 @@ internal class Program
     //Diccionario Ordenes de reparacion
     static Dictionary<string, OrdenReparacion> DicOrdenesR = new();
 
+    //Diccionario para estado de ordenes
+    static List<AprobarOrden> ListAprobaciones = new();
+
 
     //Metodos de las clases
     static Cliente mClientes = new();
@@ -75,95 +78,6 @@ internal class Program
 
 
         }while(opcion != "0");
-        //mClientes.RegistrarCliente(DicClientes);
-       // mClientes.MostrarClientes(DicClientes);
-        //mVehiculos.MostrarVehiculos(DicClientes,DicVehiculos);
-        //mEmpleados.MostrarEmpleados(DicEmpleados);
-       // mOrdenServicios.MostrarOrdenes(DicOrdenesS,DicDiagnosticos1);
-
-
-        /* Registrar Vehiculo
-        Cliente falsoCliente = new ("Jaime","Lopez",3004785262,"jaime@gmail.com","2023-08-06");
-        DicClientes.Add("111",falsoCliente);
-        if(DicClientes.Count != 0)
-        {
-            mClientes.MostrarClientes(DicClientes);
-            mVehiculos.RegistrarVehiculo(DicClientes,DicVehiculos);
-
-        }else{
-            Console.WriteLine("No existen clientes en la base de datos, por lo tanto no puede hacer un registro de un vehículo. ");
-        }*/
-
-        //mEmpleados.RegistrarEmpleado(DicEmpleados);
-
-
-        //Registrar Orden de servicio: Datos de la orden 1.1
-        /*if(DicClientes.Count != 0)
-        {
-            if(DicVehiculos.Count != 0)
-            {
-                mVehiculos.MostrarVehiculos(DicClientes,DicVehiculos);
-
-                mOrdenServicios.RegistrarOrden(DicVehiculos,DicOrdenesS);
-            }else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No vehículos en la base de datos, por lo tanto no puede hacer ninguna orden de servicio");
-                Console.ResetColor();
-            }
-
-        }else{
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("No existen clientes en la base de datos, por lo tanto no puede hacer ninguna orden de servicio");
-            Console.ResetColor();
-        }*/
-
-        //Registrar Orden de servicio :diagnostico experto 1.2
-
-        
-        /*List<string> especialidad = new(){"Bailar","Cocinar"};
-        Empleado falsoEmpleado = new("Lucas",3004789625,especialidad);
-        List<string> especialidad2 = new(){"Cocinar"};
-        Empleado falsoEmpleado2 = new("Martin",3004789625,especialidad2);
-        DicEmpleados.Add("999",falsoEmpleado);
-        DicEmpleados.Add("888",falsoEmpleado2);
-
-        OrdenServicio falsaordenServicio= new("111","2023-08-06","UUU000","Motor quemado :c");
-        
-        OrdenServicio falsaordenServicio2= new("111","2023-08-06","KTR477","Motor quemado :c");
-        DicOrdenesS.Add("001", falsaordenServicio);
-        DicOrdenesS.Add("002", falsaordenServicio2);
-        DicOrdenesS.Add("003", falsaordenServicio);
-
-        
-        List<string> diagnostico1 = new(){"Filtro de aire necesita cambio", "Cambio de refrigerante"};
-        List<string> diagnostico2 = new(){"Cambio pastillas de freno"};
-        
-        //Crear diagnostico experto
-        Dictionary<string, List<string>> dicOrdenE = new();
-        dicOrdenE.Add("001",diagnostico1);
-        Dictionary<string, List<string>> dicOrdenE2 = new();
-        dicOrdenE2.Add("001",diagnostico2);
-
-        
-        OrdenExperto falsoDiag = new();
-        OrdenExperto falsoDiag2 = new(dicOrdenE2);
-
-        //DicDiagnosticos.Add("999",falsoDiag);
-        //DicDiagnosticos.Add("888",falsoDiag2);
-        //DicDiagnosticos["888"].Diagnosticos.Add("002",diagnostico1);
-
-        mOrdenServicios.MostrarOrdenes(DicOrdenesS,DicDiagnosticos);
-        mDiagExpertos.NuevoDiganostico(DicEmpleados,DicOrdenesS,DicDiagnosticos);
-        mDiagExpertos.NuevoDiganostico(DicEmpleados,DicOrdenesS,DicDiagnosticos);
-
-        mOrdenServicios.MostrarOrdenes(DicOrdenesS,DicDiagnosticos);
-
-        //Asignar orden de reparacion 
-        mOrdenReparacions.NuevaOrdenReparacion(DicEmpleados,DicOrdenesS,DicDiagnosticos,DicOrdenesR);
-        mOrdenServicios.MostrarOrdenes(DicOrdenesS,DicDiagnosticos);
-
-        //generar facturas*/
         
     }
 
@@ -184,7 +98,8 @@ internal class Program
                     break;
                 case "4": //Aprobar orden de reparación
                     //Mostrar ordenes
-                    mClientes.AprobarOrdenServicio(DicOrdenesS,DicClientes,DicVehiculos,DicDiagnosticos, DicEmpleados, DicOrdenesR);
+
+                    mClientes.AprobarOrdenServicio(DicOrdenesS,DicClientes,DicVehiculos,DicDiagnosticos, DicEmpleados, DicOrdenesR,ListAprobaciones);
                     break;
                 case "5": //Solicitar factura
                     break;
