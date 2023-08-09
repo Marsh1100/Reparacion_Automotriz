@@ -43,3 +43,18 @@ D:/Documents/Campus Programmer/Reparacion_Automotriz/obj/Debug/net7.0/ref/Repara
 /home/skylab-138/Documents/mb/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.pdb
 /home/skylab-138/Documents/mb/Reparacion_Automotriz/obj/Debug/net7.0/Reparacion_Automotriz.genruntimeconfig.cache
 /home/skylab-138/Documents/mb/Reparacion_Automotriz/obj/Debug/net7.0/ref/Reparacion_Automotriz.dll
+d:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.exe
+d:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.deps.json
+d:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.runtimeconfig.json
+d:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.dll
+d:\Documents\Campus Programmer\Reparacion_Automotriz\bin\Debug\net7.0\Reparacion_Automotriz.pdb
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.csproj.AssemblyReference.cache
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.GeneratedMSBuildEditorConfig.editorconfig
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.AssemblyInfoInputs.cache
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.AssemblyInfo.cs
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.csproj.CoreCompileInputs.cache
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.dll
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\refint\Reparacion_Automotriz.dll
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.pdb
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\Reparacion_Automotriz.genruntimeconfig.cache
+d:\Documents\Campus Programmer\Reparacion_Automotriz\obj\Debug\net7.0\ref\Reparacion_Automotriz.dll
