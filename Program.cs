@@ -42,6 +42,8 @@ internal class Program
     //Diccionario para estado de ordenes
     static List<AprobarOrden> ListAprobaciones = new();
 
+    //Diccionario de facturas
+    static Dictionary<string,Factura> DicFacturas= new();
 
     //Metodos de las clases
     static Cliente mClientes = new();
@@ -102,9 +104,12 @@ internal class Program
                     mClientes.AprobarOrdenServicio(DicOrdenesS,DicClientes,DicVehiculos,DicDiagnosticos, DicEmpleados, DicOrdenesR,ListAprobaciones);
                     break;
                 case "5": //Solicitar factura
+                    
+                    mClientes.Facturacion(DicOrdenesS,DicClientes,DicEmpleados,DicOrdenesR,ListAprobaciones, DicFacturas);
+
                     break;
                 case "6": //Mostrar Ordenes de servicio
-                        mClientes.MostrarOrdenes(DicOrdenesS, DicClientes,DicDiagnosticos);
+                        mClientes.MostrarOrdenes(DicOrdenesS, DicClientes);
 
                     break;
                 case "0": //Salir

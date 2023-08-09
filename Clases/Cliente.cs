@@ -120,7 +120,7 @@ namespace Reparacion_Automotriz.Clases
         }
 
 
-        public void MostrarOrdenes(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes,Dictionary<string, OrdenExperto> DicDiagnosticos){
+        public void MostrarOrdenes(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes ){
 
             //Mostrar Clientes
             MostrarClientes(DicClientes);
@@ -249,21 +249,38 @@ namespace Reparacion_Automotriz.Clases
 
                         foreach(var r in DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Repuestos)
                         {
+                            bool continuar;
+                            do
+                            {
                             Console.WriteLine("¿Desea aprobar el respuesto {0}\n1.Sí\n2.No",r.Nombre);
                             string rta = Convert.ToString(Console.ReadLine());
                                     if(rta =="1")
                                     {
                                         r.Estado = true;
+                                        continuar = false;
                                     }else if(rta !="2"){
                                         Console.WriteLine("El valor es inválido");
                                         r.Estado = false;
+                                        continuar = true;
+
                                     }else{
                                         r.Estado = false;
+                                        continuar = false;
+
 
                                     }
+                            }while(continuar);
                         }
 
                         MostrarOrdenAprobacion(DicOrdenesR,idEmpleado,idorden,ListAprobaciones);
+
+                        AprobarOrden mAprobacion = new();
+
+                        mAprobacion.NuevaAprobacion(ListAprobaciones,idorden,idEmpleado );
+
+                        Console.WriteLine("Su orden de aprobación ha sido generada. Ya puede consultar su factura!");
+
+                        
 
 
                     }else{
@@ -294,28 +311,24 @@ namespace Reparacion_Automotriz.Clases
             Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n---------------------------------------------------------");Console.ResetColor(); 
             Console.WriteLine("Nro Orden: {0}\tFecha:{1}",idOrden,DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Fecha);
             Console.ForegroundColor = ConsoleColor.DarkGreen; Console.WriteLine("\n******************** DETALLE DE APROBACIÓN ***************");                     Console.ResetColor(); 
-            Console.WriteLine("Item\tRepuesto\tValorU\tCant\tValor Total\tEstado");
+            Console.WriteLine("Item\tRepuesto\tValorU\tCant\tTotal\tEstado");
 
             int cont = 1;
             foreach(var r in DicOrdenesR[idEmpleado].InfoReparacion[idOrden].Repuestos)
             {
                 double total = r.Cantidad *r.ValorU;
                 string estado = r.Estado ? "A":"R" ;
-                Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", cont,r.Nombre, r.ValorU, r.Cantidad,total,estado);
+                Console.WriteLine("{0}\t{1}\t\t{2}\t{3}\t{4}\t{5}", cont,r.Nombre, r.ValorU, r.Cantidad,total,estado);
                 cont +=1;
             }
-            AprobarOrden mAprobacion = new();
 
-            mAprobacion.NuevaAprobacion(ListAprobaciones,idorden,idEmpleado );
-
-            Console.WriteLine("Su orden de aprobación ha sido generada. Ya puede consultar su factura!");
 
 
             Console.ReadKey();
         }
 
 
-        public void Facturacion(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes,Dictionary<string, OrdenReparacion> DicOrdenesR,List<AprobarOrden> ListAprobaciones)
+        public void Facturacion(Dictionary<string, OrdenServicio> DicOrdenesS, Dictionary<string, Cliente> DicClientes,Dictionary<string, Empleado> DicEmpleados,Dictionary<string, OrdenReparacion> DicOrdenesR,List<AprobarOrden> ListAprobaciones, Dictionary<string,Factura> DicFacturas)
         {
             MostrarClientes(DicClientes);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -327,18 +340,20 @@ namespace Reparacion_Automotriz.Clases
 
             if(DicClientes.ContainsKey(idCliente))
             {
-                
-                
                 List<string> filtrarO = new(); //Filtramos las ordenes aprobadas que tenga el cliente.
                 foreach(var item in ListAprobaciones)
                 {
-                    if(item.IdEmpleado.Equals(idCliente) && item.Aprobada)
+                    string[] splitOrden = item.IdOrden.Split("-");
+                    string idcliente = DicOrdenesS[splitOrden[0]].IdCliente;
+
+
+                    if(idcliente.Equals(idCliente) && item.Aprobada)
                     {
-                        filtrarO.Add(item.IdOrden);
+                        filtrarO.Add(item.IdOrden+"-"+item.IdEmpleado);
                     }
                 }
 
-                if(filtrarO.Count()>0){
+                if(filtrarO.Count > 0){
                     Console.ForegroundColor = ConsoleColor.Yellow; Console.WriteLine("Ordenes de servicio apropadas:");                     Console.ResetColor();
                     Console.WriteLine("\nOrden\tPlaca\tFecha\tEmpleado a cargo");
 
@@ -346,13 +361,80 @@ namespace Reparacion_Automotriz.Clases
                         string[] splitOrden = item.Split("-");
                         string placa = DicOrdenesS[splitOrden[0]].Idplaca;
                         string fecha = DicOrdenesS[splitOrden[0]].Fecha;
-                        //string idempleado =Dic[idC].Nombre;
+                        string idempleado =DicEmpleados[splitOrden[2]].Nombre;
 
-                        //Console.WriteLine(item.IdOrden+"\t"+placa+"\t"+fecha+"\t"+idempleado);
+                        Console.WriteLine(splitOrden[0]+"-"+splitOrden[1]+"\t"+placa+"\t"+fecha+"\t"+idempleado);
                     }
 
+                    Console.WriteLine("Digite el número de orden para facturación:");
+                    string idorden = Convert.ToString(Console.ReadLine());
+                    string[] split = idorden.Split("-");
+                    string IdOrden = split[0];
+
+                    bool existe = false;
+                    string IdEmpleado="";
+                    foreach(var item in filtrarO){
+                        string[] splitOrden = item.Split("-");
+                        string idOrdenE = splitOrden[0]+"-"+splitOrden[1];
+                         if(idOrdenE.Equals(idorden)){
+                            existe = true;
+                            IdEmpleado = splitOrden[2];
+                            break;
+                         }
+                    }
+
+                    if(existe){
+                        //facturacion
+                        List<Repuesto> repuestosA = DicOrdenesR[IdEmpleado].InfoReparacion[IdOrden].Repuestos;
+
+                        Factura mFactura = new ();
+                        string idFactura =  Guid.NewGuid().ToString();//Nro de Factura
+                        mFactura.NuevaFactura(DicFacturas, repuestosA, idorden,idFactura);
+
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("*************************** FACTURA ****************************");
+                        Console.ResetColor();
+                        Console.WriteLine("Nro Orden: {0}\tNro Factura: {1}", idorden, idFactura[..5]); //idFactura.Substring(0,5)
+                        Console.WriteLine("Id Cliente: {0}", idCliente);
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("*********************** DETALLE FACTURA ************************");
+                        Console.ResetColor();
+
+                        Console.WriteLine("Item\tRepuesto\tValorU\tCant\tSubtotal");
+                        int cont = 1;
+                        double totalRepuestos = 0;
+                        foreach(var r in DicOrdenesR[IdEmpleado].InfoReparacion[IdOrden].Repuestos){
+                            double subtotal = r.Cantidad *r.ValorU;
+                            Console.WriteLine("{0}\t{1}\t\t{2}\t{3}\t{4}\t", cont,r.Nombre, r.ValorU, r.Cantidad,subtotal);
+                            cont +=1;
+                            totalRepuestos += subtotal;
+                        }
+                        double iva = totalRepuestos*0.19;
+                        double manoObra = totalRepuestos*0.1;
+                        double total = totalRepuestos+iva+manoObra;
+
+                        Console.WriteLine("Subtotal:{0}\nIVA:{1}\nMano de Obra: {2}",totalRepuestos, iva, manoObra);
+
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("TOTAL:{0}", total);
+                        Console.ResetColor();
+
+
+
+
+
+                    }else{
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("No hay factura para ese número de orden");
+                        Console.ResetColor();
+                    }
+
+
                 }else{
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("No se ha encontrado niguna orden en estado apropada por parte del cliente :c");
+                    Console.ResetColor();
+
                 }
             }else{
                 Console.ForegroundColor = ConsoleColor.Red;
