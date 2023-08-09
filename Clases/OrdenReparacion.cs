@@ -65,7 +65,7 @@ namespace Reparacion_Automotriz.Clases
                         Console.WriteLine("Ingrese nombre de repuesto:");
                         string nombre = Convert.ToString(Console.ReadLine());
                         Console.WriteLine("Ingrese valor unitario del repuesto {0}:",nombre);
-                        float valorUnitario = float.Parse(Console.ReadLine());
+                        double valorUnitario = double.Parse(Console.ReadLine());
                         Console.WriteLine("Ingrese cantidad del repuesto {0}:",nombre);
                         int cantidad = int.Parse(Console.ReadLine());
 
@@ -119,7 +119,7 @@ namespace Reparacion_Automotriz.Clases
                         Console.WriteLine("Ingrese nombre de repuesto:");
                         string nombre = Convert.ToString(Console.ReadLine());
                         Console.WriteLine("Ingrese valor unitario del repuesto {0}:",nombre);
-                        float valorUnitario = float.Parse(Console.ReadLine());
+                        double valorUnitario = double.Parse(Console.ReadLine());
                         Console.WriteLine("Ingrese cantidad del repuesto {0}:",nombre);
                         int cantidad = int.Parse(Console.ReadLine());
 
